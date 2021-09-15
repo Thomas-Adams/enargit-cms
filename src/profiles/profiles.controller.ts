@@ -1,33 +1,35 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { RolesService } from './roles.service';
-import { Role } from './schema/role.schema';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
+import { ProfilesService } from './profiles.service';
+import { Profile } from './schema/profile.schema';
+import { CreateProfileDto } from './dto/create-profile.dto';
+import { UpdateProfileDto } from './dto/update-profile.dto';
 
-@Controller('roles')
-export class RolesController {
-  constructor(private readonly rolesService: RolesService) {}
+@Controller('profiles')
+export class ProfilesController {
+  constructor(private readonly profilesService: ProfilesService) {}
 
-  @Get(':rolename')
-  async getRole(@Param('rolename') rolename: string): Promise<Role> {
-    return this.rolesService.getRoleById(rolename);
+  @Get(':id')
+  async getProfile(@Param('id') id: string): Promise<Profile> {
+    return this.profilesService.getProfileById(id);
   }
 
   @Get()
-  async getRoles(): Promise<Role[]> {
-    return this.rolesService.getRoles();
+  async getProfiles(): Promise<Profile[]> {
+    return this.profilesService.getProfiles();
   }
 
   @Post()
-  async createRole(@Body() createRoleDto: CreateRoleDto): Promise<Role> {
-    return this.rolesService.createRole(createRoleDto);
+  async createProfile(
+    @Body() createProfileDto: CreateProfileDto,
+  ): Promise<Profile> {
+    return this.profilesService.createProfile(createProfileDto);
   }
 
-  @Patch(':rolename')
+  @Patch(':id')
   async updateRole(
-    @Param('rolename') rolename: string,
-    @Body() updateRoleDto: UpdateRoleDto,
-  ): Promise<Role> {
-    return this.rolesService.updateRole(rolename, updateRoleDto);
+    @Param('id') id: string,
+    @Body() updateProfileDto: UpdateProfileDto,
+  ): Promise<Profile> {
+    return this.profilesService.updateProfile(id, updateProfileDto);
   }
 }

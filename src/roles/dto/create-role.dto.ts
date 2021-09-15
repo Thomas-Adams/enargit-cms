@@ -1,5 +1,4 @@
-export interface CreateUserDto {
-  username: string;
-  email: string;
-  password: string;
+export interface CreateRoleDto {
+  name: string;
+  description: string;
 }

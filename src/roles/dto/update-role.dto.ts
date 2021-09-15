@@ -1,7 +1,5 @@
-export interface UpdateUserDto {
-  username: string;
-  email: string;
+export interface UpdateRoleDto {
+  name: string;
+  description: string;
   enabled: boolean;
-  loading: boolean;
-  expired: boolean;
 }

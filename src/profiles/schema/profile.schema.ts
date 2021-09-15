@@ -1,6 +1,7 @@
-import { Prop, Schema } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
+import { Document, ObjectId } from 'mongoose';
+import { User } from '../../users/schema/user.schema';
 
 export type ProfileDocument = Profile & Document;
 
@@ -21,11 +22,18 @@ export class Profile {
   @Prop()
   enabled: boolean;
 
-  @Prop()
-  avatar: {
-    type: mongoose.Schema.Types.ObjectId;
-    ref: 'GridFs';
-  };
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'GridFs',
+    required: false,
+  })
+  avatar: ObjectId;
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+  })
+  user: User;
 
   @Prop()
   created: Date;
@@ -33,3 +41,5 @@ export class Profile {
   @Prop()
   modified: Date;
 }
+
+export const ProfileSchema = SchemaFactory.createForClass(Profile);

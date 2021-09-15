@@ -1,29 +1,29 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { User, UserDocument } from './schema/user.schema';
+import { Role, RoleDocument } from './schema/role.schema';
 import { FilterQuery, Model } from 'mongoose';
 
 @Injectable()
-export class UsersRepository {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+export class RolesRepository {
+  constructor(@InjectModel(Role.name) private roleModel: Model<RoleDocument>) {}
 
-  async findOne(userFilterQuery: FilterQuery<UserDocument>): Promise<User> {
-    return this.userModel.findOne(userFilterQuery);
+  async findOne(roleFilterQuery: FilterQuery<RoleDocument>): Promise<Role> {
+    return this.roleModel.findOne(roleFilterQuery);
   }
 
-  async find(userFilterQuery: FilterQuery<UserDocument>): Promise<User[]> {
-    return this.userModel.find(userFilterQuery);
+  async find(roleFilterQuery: FilterQuery<RoleDocument>): Promise<Role[]> {
+    return this.roleModel.find(roleFilterQuery);
   }
 
-  async create(user: User): Promise<User> {
-    const newUser = new this.userModel(user);
-    return newUser.save();
+  async create(role: Role): Promise<Role> {
+    const newRole = new this.roleModel(role);
+    return newRole.save();
   }
 
   async findOneAndUpdate(
-    userFilterQuery: FilterQuery<UserDocument>,
-    user: Partial<User>,
-  ): Promise<User> {
-    return this.userModel.findOneAndUpdate(userFilterQuery, user);
+    roleFilterQuery: FilterQuery<RoleDocument>,
+    role: Partial<Role>,
+  ): Promise<Role> {
+    return this.roleModel.findOneAndUpdate(roleFilterQuery, role);
   }
 }

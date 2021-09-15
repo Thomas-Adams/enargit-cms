@@ -1,33 +1,37 @@
 import { Injectable } from '@nestjs/common';
-import { UsersRepository } from './users.repository';
-import { User } from './schema/user.schema';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { CreateUserDto } from './dto/create-user.dto';
+import { RolesRepository } from './roles.repository';
+import { Role } from './schema/role.schema';
+import { UpdateRoleDto } from './dto/update-role.dto';
+import { CreateRoleDto } from './dto/create-role.dto';
 
 @Injectable()
-export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) {}
+export class RolesService {
+  constructor(private readonly rolesRepository: RolesRepository) {}
 
-  async getUserById(userId: string): Promise<User> {
-    return this.usersRepository.findOne({ userId });
+  async getRoleById(rolename: string): Promise<Role> {
+    return this.rolesRepository.findOne({ name: rolename });
   }
 
-  async getUsers(): Promise<User[]> {
-    return this.usersRepository.find({});
+  async getRoles(): Promise<Role[]> {
+    return this.rolesRepository.find({});
   }
 
-  async createUser(createUserDto: CreateUserDto): Promise<User> {
-    return this.usersRepository.create({
-      ...createUserDto,
+  async createRole(createRoleDto: CreateRoleDto): Promise<Role> {
+    return this.rolesRepository.create({
+      ...createRoleDto,
       modified: new Date(),
       created: new Date(),
       enabled: true,
-      locked: false,
-      expired: false,
     });
   }
 
-  async updateUser(userId: string, userUpdates: UpdateUserDto): Promise<User> {
-    return this.usersRepository.findOneAndUpdate({ userId }, userUpdates);
+  async updateRole(
+    roleName: string,
+    roleUpdates: UpdateRoleDto,
+  ): Promise<Role> {
+    return this.rolesRepository.findOneAndUpdate(
+      { name: roleName },
+      roleUpdates,
+    );
   }
 }

@@ -1,33 +1,33 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { User } from './schema/user.schema';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { RolesService } from './roles.service';
+import { Role } from './schema/role.schema';
+import { CreateRoleDto } from './dto/create-role.dto';
+import { UpdateRoleDto } from './dto/update-role.dto';
 
-@Controller('users')
-export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+@Controller('roles')
+export class RolesController {
+  constructor(private readonly rolesService: RolesService) {}
 
-  @Get(':username')
-  async getUser(@Param('username') username: string): Promise<User> {
-    return this.usersService.getUserById(username);
+  @Get(':rolename')
+  async getRole(@Param('rolename') rolename: string): Promise<Role> {
+    return this.rolesService.getRoleById(rolename);
   }
 
   @Get()
-  async getUsers(): Promise<User[]> {
-    return this.usersService.getUsers();
+  async getRoles(): Promise<Role[]> {
+    return this.rolesService.getRoles();
   }
 
   @Post()
-  async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.createUser(createUserDto);
+  async createRole(@Body() createRoleDto: CreateRoleDto): Promise<Role> {
+    return this.rolesService.createRole(createRoleDto);
   }
 
-  @Patch(':username')
-  async updateUser(
-    @Param('username') username: string,
-    @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User> {
-    return this.usersService.updateUser(username, updateUserDto);
+  @Patch(':rolename')
+  async updateRole(
+    @Param('rolename') rolename: string,
+    @Body() updateRoleDto: UpdateRoleDto,
+  ): Promise<Role> {
+    return this.rolesService.updateRole(rolename, updateRoleDto);
   }
 }
