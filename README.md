@@ -1,4 +1,4 @@
-#ENARGIT_CMS
+# ENARGITE CMS
 
 ![alt Enargite Quartz](https://github.com/Thomas-Adams/enargit-cms/blob/master/assets/Enargite-Quartz.jpg?raw=true)
 
